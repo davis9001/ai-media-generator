@@ -4,3 +4,4 @@ __pycache__/
 movie-description-audio/*
 movie-description-videos/*
 movie-trailers/*
+polly-audio/*

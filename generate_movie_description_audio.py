@@ -56,8 +56,8 @@ if __name__ == "__main__":
   args = parser.parse_args()
 
   if args.input is None:
-      # Prompt the user for input if the input argument is not provided
-      args.input = input("Enter the Movie Name (Year): ")
+    # Prompt the user for input if the input argument is not provided
+    args.input = input("Enter the Movie Name (Year): ")
   movie_name = args.input
   script = generate_video_script(movie_name)
   generate_audio(script, f"movie-description-audio/{movie_name}.mp3", 'mp3')
