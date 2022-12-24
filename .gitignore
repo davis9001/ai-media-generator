@@ -1,0 +1,5 @@
+.env
+venv
+movie-description-audio/*
+movie-description-videos/*
+movie-trailers/*
