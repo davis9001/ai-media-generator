@@ -9,6 +9,11 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
+You will need to create a `.env` file which includes the API keys for the needed services.
+
+Rename or copy the `.env.example` file to `.env` and fill in the keys.
+
+## Running:
 There are currently three separate python scripts that will do the following:
 1) Download the first result for MOVIE_NAME from YouTube
 2) Generate a description of MOVIE_NAME from OpenAI then run text-to-speech on that from Amazon Polly
@@ -19,7 +24,6 @@ Each of these will save the files into three separate folders (and the files are
 2) movie-description-audio
 3) movie-description-video
 
-## Running:
 ```
 $ python download-movie-trailer.py
 $ python generate-movie-description-audio.py
