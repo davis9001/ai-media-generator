@@ -6,12 +6,6 @@ import boto3
 
 load_dotenv()
 
-# ChatGPT API endpoint
-CHATGPT_URL = "https://api.openai.com/v1/chatgpt/generate"
-
-# Amazon Polly API endpoint
-POLLY_URL = "https://polly.us-east-1.amazonaws.com/v1/speech"
-
 # ChatGPT API key
 openai.organization = os.getenv("CHATGPT_ORG")
 openai.api_key = os.getenv("CHATGPT_API_KEY")
@@ -19,11 +13,6 @@ openai.api_key = os.getenv("CHATGPT_API_KEY")
 # Amazon Polly API key
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
-polly_client = boto3.Session(
-                aws_access_key_id=AWS_ACCESS_KEY_ID,                     
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-                region_name='us-west-2').client('polly')
 
 # Function to generate a 90-second video script for a movie using ChatGPT
 def generate_video_script(movie_name):
@@ -43,6 +32,11 @@ def generate_video_script(movie_name):
 
 # Function to convert a text script to audio using Amazon Polly
 def generate_audio(text, filename, format):
+  polly_client = boto3.Session(
+                  aws_access_key_id=AWS_ACCESS_KEY_ID,                     
+                  aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                  region_name='us-west-2').client('polly')
+
   response = polly_client.synthesize_speech(VoiceId='Matthew',
                 OutputFormat=format, 
                 Text = text,
@@ -51,15 +45,20 @@ def generate_audio(text, filename, format):
   file = open(filename, 'wb')
   file.write(response['AudioStream'].read())
   file.close()
+  return file
 
+if __name__ == "__main__":
+  import sys
+  import argparse
 
-# Get the name of the movie from the user
-movie_name = input("Enter the name of a movie: ")
+  parser = argparse.ArgumentParser()
+  parser.add_argument("input", nargs='?', default=None, help="Movie Name (Year)")
+  args = parser.parse_args()
 
-# Generate the video script for the movie using ChatGPT
-script = generate_video_script(movie_name)
-
-# Convert the script to audio file
-generate_audio(script, f"movie-description-audio/{movie_name}.mp3", 'mp3')
-
-print(f"Audio file saved as '{movie_name}.mp3'.")
+  if args.input is None:
+      # Prompt the user for input if the input argument is not provided
+      args.input = input("Enter the Movie Name (Year): ")
+  movie_name = args.input
+  script = generate_video_script(movie_name)
+  generate_audio(script, f"movie-description-audio/{movie_name}.mp3", 'mp3')
+  print(f"Audio file saved as '{movie_name}.mp3'.")

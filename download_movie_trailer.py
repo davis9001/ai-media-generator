@@ -43,7 +43,16 @@ def download_movie_trailer(movie_name):
     
     print(f'Successfully downloaded video for "{movie_name}"')
 
+if __name__ == "__main__":
+    import sys
+    import argparse
 
-movie_name = input("Input the name of the movie")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input", nargs='?', default=None, help="Movie Name (Year)")
+    args = parser.parse_args()
 
-download_movie_trailer(movie_name)
+    if args.input is None:
+        # Prompt the user for input if the input argument is not provided
+        args.input = input("Enter the Movie Name (Year): ")
+    movie_name = args.input
+    download_movie_trailer(movie_name)
