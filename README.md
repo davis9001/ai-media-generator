@@ -25,8 +25,8 @@ Each of these will save the files into three separate folders (and the files are
 3) movie-description-video
 
 ```
-$ python download-movie-trailer.py
-$ python generate-movie-description-audio.py
-$ python video-trailer-clipper-combiner.py
+$ python download_movie_trailer.py
+$ python generate_movie_description_audio.py
+$ python video_trailer_clipper_combiner.py
 ```
 
