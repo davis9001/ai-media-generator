@@ -14,13 +14,13 @@ AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 # Function to convert a text script to audio using Amazon Polly
-def generate_audio(text, filename, format):
+def generate_audio(text, filename, format, voice='Matthew'):
   polly_client = boto3.Session(
                   aws_access_key_id=AWS_ACCESS_KEY_ID,                     
                   aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
                   region_name='us-west-2').client('polly')
 
-  response = polly_client.synthesize_speech(VoiceId='Matthew',
+  response = polly_client.synthesize_speech(VoiceId=voice,
                 OutputFormat=format, 
                 Text = text,
                 Engine = 'neural')
