@@ -49,5 +49,5 @@ if __name__ == "__main__":
   now = datetime.datetime.now()
   date_time_str = now.strftime("%Y-%m-%d")
   with open(f"gpt-text/{date_time_str}-{filename}.txt", "w") as file:
-    file.write("text")
+    file.write(response)
   print(response)
