@@ -7,8 +7,6 @@ import re
 
 load_dotenv()
 
-now = datetime.datetime.now()
-
 # Amazon Polly API key
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
@@ -54,6 +52,7 @@ if __name__ == "__main__":
     # Prompt the user for input if the input argument is not provided
     args.text = input("Enter the script text: ")
   input_text = args.text
+  now = datetime.datetime.now()
   date_time_str = now.strftime("%Y-%m-%d")
   firstwords = get_filename_safe_text(input_text, 5)
   filename = f"polly-audio/{date_time_str}-{firstwords}.mp3"

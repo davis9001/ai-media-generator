@@ -46,6 +46,7 @@ if __name__ == "__main__":
   prompt = args.prompt
   response = generate_gpt_response(prompt)
   filename =  get_filename_safe_text(prompt)
+  now = datetime.datetime.now()
   date_time_str = now.strftime("%Y-%m-%d")
   with open(f"gpt-text/{date_time_str}-{filename}.txt", "w") as file:
     file.write("text")
