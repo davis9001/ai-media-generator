@@ -11,7 +11,7 @@ $ pip install -r requirements.txt
 
 You will need to create a `.env` file which includes the API keys for the needed services.
 
-Rename or copy the `.env.example` file to `.env` and fill in the keys.
+Copy the `.env.example` file to `.env` and fill in the keys.
 
 ## Running:
 There are currently three separate python scripts that will do the following:
