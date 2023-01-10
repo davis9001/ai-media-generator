@@ -17,7 +17,7 @@ def make_landscape_video(movie_name):
     audio_file_length = audio_file.duration
 
     # Set the number of clips to grab
-    num_clips = 5
+    num_clips = 3
 
     # Set the duration of each clip in seconds
     clip_duration = audio_file_length / num_clips
@@ -50,6 +50,8 @@ def write_landscape_video(video_clip, movie_name):
     video_clip.write_videofile(output_file, codec='libx264')
 
 def make_portrait_video(landscape_clip, movie_name):
+
+    landscape_clip = landscape_clip.resize(width=1920)
     
     blank_portrait_clip = ColorClip(
         (1080, 1920),

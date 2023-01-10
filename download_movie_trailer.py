@@ -11,7 +11,7 @@ def download_movie_trailer(movie_name):
     # Use the YouTube Data API to search for videos with the given movie name
     youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
     search_response = youtube.search().list(
-        q=f"{movie_name} official trailer",
+        q=f"{movie_name} official trailer 1080p",
         part='snippet',
         type='video',
         videoDefinition='high',
