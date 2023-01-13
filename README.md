@@ -4,8 +4,8 @@ This project uses Python 3.8.
 ```
 $ git clone git@github.com:davis9001/ai-media-generator.git
 $ cd ai-media-generator
-$ python -m env env
-$ source env/bin/activate
+$ python -m venv venv
+$ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
