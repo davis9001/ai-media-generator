@@ -10,12 +10,12 @@ openai.api_key = os.getenv("CHATGPT_API_KEY")
 
 # Function to generate a 90-second video script for a movie using ChatGPT
 def generate_video_script(movie_name, filename):
-  movie_script_prompt = f"Please write a 4 paragraph long plot synopsis of the movie {movie_name} without mention the actors or the production."
+  movie_script_prompt = f"Write four long paragraphs of voiceover script accurately describing the plot from the screenplay of the movie {movie_name} without mentioning the actors or the production. Mention at the beginning that this video contains spoilers in just a few words."
   completion = openai.Completion.create(
     engine="text-davinci-002",
     prompt=movie_script_prompt,
-    max_tokens=1500,
-    temperature=0.59)
+    max_tokens=1800,
+    temperature=0.96)
     # max_tokens=1500,
     # n=1,
     # stop=None,
