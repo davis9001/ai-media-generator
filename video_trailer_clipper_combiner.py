@@ -7,6 +7,7 @@ from moviepy.config import change_settings
 # change_settings({"IMAGEMAGICK_BINARY": r"/usr/local/bin/convert"})
 from skimage.filters import gaussian
 
+
 def make_landscape_video(movie_name):
     # Set the input file paths
     input_audio_file = f"movie-description-audio/{movie_name}.mp3"
@@ -17,7 +18,13 @@ def make_landscape_video(movie_name):
     audio_file_length = audio_file.duration
 
     # Set the number of clips to grab
-    num_clips = 3
+    num_clips = 4
+
+    # Create start times as equally spaced num_clips into audio_file_length
+    # e.g. [0, 9, 19, 28, 38]
+    start_times = create_start_times(num_clips, audio_file_length)
+    print(audio_file_length)
+    print(start_times)
 
     # Set the duration of each clip in seconds
     clip_duration = audio_file_length / num_clips
@@ -25,11 +32,6 @@ def make_landscape_video(movie_name):
     # Open the input video
     video = VideoFileClip(input_video_file)
     video = video.without_audio()
-
-    # Generate the start times for the clips
-    start_times = []
-    for i in range(num_clips):
-        start_times.append(random.randint(0, int(video.duration) - int(clip_duration)))
 
     # Extract the clips using VideoFileClip.subclip
     clips = []
@@ -39,6 +41,7 @@ def make_landscape_video(movie_name):
     # Concatenate the clips into a single video using concatenate_videoclips
     final_clip = concatenate_videoclips(clips)
     final_clip.audio = audio_file
+    final_clip = final_clip.resize(width=1920)
 
     return final_clip
 
@@ -50,8 +53,6 @@ def write_landscape_video(video_clip, movie_name):
     video_clip.write_videofile(output_file, codec='libx264')
 
 def make_portrait_video(landscape_clip, movie_name):
-
-    landscape_clip = landscape_clip.resize(width=1920)
     
     blank_portrait_clip = ColorClip(
         (1080, 1920),
@@ -64,7 +65,7 @@ def make_portrait_video(landscape_clip, movie_name):
     final_clip = CompositeVideoClip(
         [
             blank_portrait_clip,
-            landscape_clip_blurred.set_position("center").resize(1.8),
+            landscape_clip_blurred.set_position("center").resize(2.3),
             landscape_clip.set_position("center").resize(0.5625),
             # movie_title_text
             ], size=[1080,1920], use_bgclip=True)
@@ -78,8 +79,11 @@ def write_portrait_video(portrait_clip, movie_name):
     portrait_clip.write_videofile(output_file, codec='libx264')
 
 def blur(image):
-    return gaussian(image.astype(float), sigma=5)
+    return gaussian(image.astype(float), sigma=9)
 
+def create_start_times(n, x):
+    step = x/n
+    return [int(i*step) for i in range(n+1)]
 
 if __name__ == "__main__":
     import sys
