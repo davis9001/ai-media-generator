@@ -82,8 +82,11 @@ def blur(image):
     return gaussian(image.astype(float), sigma=9)
 
 def create_start_times(n, x):
+    # Create start times as equally spaced num_clips (n) into audio_file_length (x)
+    # for n=5 and x=60
+    # return [0, 9, 19, 28, 38]
     step = x/n
-    return [int(i*step) for i in range(n+1)]
+    return [int(i*step) for i in range(n)]
 
 if __name__ == "__main__":
     import sys
