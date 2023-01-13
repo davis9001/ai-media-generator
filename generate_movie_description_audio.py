@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # Prompt the user for input if the input argument is not provided
     args.input = input("Enter the Movie Name (Year): ")
   movie_name = args.input
-  with open(f"movie-description-text/{movie_name}.txt") as file:
+  with open(f"generated-gpt-text/{movie_name}.txt") as file:
     script = file.read()
-  generate_audio(script, f"movie-description-audio/{movie_name}.mp3", 'mp3')
-  print(f"Audio file saved as '{movie_name}.mp3'.")
+  generate_audio(script, f"generated-tts-audio/{movie_name}.mp3", 'mp3')
+  print(f"Audio file saved as 'generated-tts-audio/{movie_name}.mp3'.")

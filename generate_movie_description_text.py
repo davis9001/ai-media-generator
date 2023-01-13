@@ -39,4 +39,4 @@ if __name__ == "__main__":
     # Prompt the user for input if the input argument is not provided
     args.input = input("Enter the Movie Name (Year): ")
   movie_name = args.input
-  script = generate_video_script(movie_name, f"movie-description-text/{movie_name}.txt")
+  script = generate_video_script(movie_name, f"generated-gpt-text/{movie_name}.txt")

@@ -10,7 +10,7 @@ from skimage.filters import gaussian
 
 def make_landscape_video(movie_name):
     # Set the input file paths
-    input_audio_file = f"movie-description-audio/{movie_name}.mp3"
+    input_audio_file = f"generated-tts-audio/{movie_name}.mp3"
     input_video_file = f"movie-trailers/{movie_name}.webm"
 
     audio_file = AudioFileClip(input_audio_file)
@@ -47,7 +47,7 @@ def make_landscape_video(movie_name):
 
 def write_landscape_video(video_clip, movie_name):
     # Set output file path
-    output_file = f"movie-description-videos/{movie_name}.mp4"
+    output_file = f"generated-movie-description-videos/{movie_name}.mp4"
 
     # Save the final clip to the output file
     video_clip.write_videofile(output_file, codec='libx264')
@@ -74,7 +74,7 @@ def make_portrait_video(landscape_clip, movie_name):
 
 
 def write_portrait_video(portrait_clip, movie_name):
-    output_file = f"movie-description-videos/{movie_name} - PORTRAIT.mp4"
+    output_file = f"generated-movie-description-videos/{movie_name} - PORTRAIT.mp4"
     
     portrait_clip.write_videofile(output_file, codec='libx264')
 

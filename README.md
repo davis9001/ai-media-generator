@@ -22,15 +22,16 @@ There are currently four separate python scripts that will do the following:
 
 Each of these will save the files into four separate folders (and the files are not automatically deleted).
 1) `movie-trailers`
-2) `movie-description-text`
-3) `movie-description-audio`
-4) `movie-description-video`
+2) `generated-gpt-text`
+3) `generated-tts-audio`
+4) `generated-movie-description-video`
 
+The should be run in the following order (at least the text needs to be generated before the audio, and the audio before the video...)
 ```
 $ python download_movie_trailer.py 'Movie Name (Year)'
 $ python generate_movie_description_text.py 'Movie Name (Year)'
 $ python generate_movie_description_audio.py 'Movie Name (Year)'
-$ python video_trailer_clipper_combiner.py 'Movie Name (Year)'
+$ python generate_movie_description_video.py 'Movie Name (Year)'
 ```
 
 ## Miscelaneous
