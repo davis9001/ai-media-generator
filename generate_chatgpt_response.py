@@ -32,7 +32,10 @@ def get_filename_safe_text(text, num_words=5):
   # Replace any non-alphanumeric characters with an underscore
   filename_safe_text = re.sub(r'[^\w]', '_', filename_safe_text)
 
-  return filename_safe_text
+  now = datetime.datetime.now()
+  date_time_str = now.strftime("%Y-%m-%d")
+
+  return f"{date_time_str}-{filename_safe_text}"
 
 if __name__ == "__main__":
   import sys
@@ -44,11 +47,14 @@ if __name__ == "__main__":
 
   if args.prompt is None:
     args.prompt = input("Enter the ChatGPT prompt: ")
+  
   prompt = args.prompt
+
   response = generate_gpt_response(prompt)
+
+  # Write the response to file
   filename =  get_filename_safe_text(prompt)
-  now = datetime.datetime.now()
-  date_time_str = now.strftime("%Y-%m-%d")
-  with open(f"generated-gpt-text/{date_time_str}-{filename}.txt", "w") as file:
+  with open(f"generated-gpt-text/{filename}.txt", "w") as file:
     file.write(response)
+  
   print(response)
