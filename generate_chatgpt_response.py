@@ -9,12 +9,13 @@ load_dotenv()
 openai.organization = os.getenv("CHATGPT_ORG")
 openai.api_key = os.getenv("CHATGPT_API_KEY")
 
-def generate_gpt_response(prompt, max_tokens=1500, temperature=1):
+def generate_gpt_response(prompt, max_tokens=3999, temperature=0.9):
   completion = openai.Completion.create(
     engine="text-davinci-002",
     prompt=prompt,
     max_tokens=max_tokens,
-    temperature=temperature)
+    temperature=temperature,
+    stop=None)
     # max_tokens=1500,
     # n=1,
     # stop=None,

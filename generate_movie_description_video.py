@@ -35,7 +35,11 @@ def make_landscape_video(movie_name):
 
     # Extract the clips using VideoFileClip.subclip
     clips = []
+
+    # Offset the start of each clip by:
+    clip_offset = 2
     for start_time in start_times:
+        start_time = start_time + clip_offset
         clips.append(video.subclip(start_time, start_time + clip_duration))
 
     # Concatenate the clips into a single video using concatenate_videoclips
