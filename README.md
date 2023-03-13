@@ -2,7 +2,7 @@ This project uses Python 3.8.
 
 ## Environment Installation:
 ```
-$ git clone git@github.com:davis9001/ai-media-generator.git
+$ git clone https://github.com/davis9001/ai-media-generator
 $ cd ai-media-generator
 $ python -m venv venv
 $ source venv/bin/activate
