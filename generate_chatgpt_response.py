@@ -10,17 +10,14 @@ openai.organization = os.getenv("CHATGPT_ORG")
 openai.api_key = os.getenv("CHATGPT_API_KEY")
 
 def generate_gpt_response(prompt, max_tokens=3999, temperature=0.9):
-  completion = openai.Completion.create(
-    engine="text-davinci-002",
-    prompt=prompt,
-    max_tokens=max_tokens,
-    temperature=temperature,
-    stop=None)
-    # max_tokens=1500,
-    # n=1,
-    # stop=None,
-    # temperature=1)
-  response = completion.choices[0].text
+  completion = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[{
+      "role": "user",
+      "content": prompt
+    }]
+  )
+  response = completion.choices[0].message.content
   return response
 
 def get_filename_safe_text(text, num_words=5):
