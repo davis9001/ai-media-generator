@@ -1,5 +1,5 @@
+import os
 from yt_dlp import YoutubeDL
-
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
 import os
@@ -39,9 +39,15 @@ def download_movie_trailer(movie_name):
     ydl_opts = {'outtmpl': f"movie-trailers/{movie_name}"}
     with YoutubeDL(ydl_opts) as ydl:
         ydl.download(URLS)
+        print(f'Successfully downloaded video for "{movie_name}"')
 
-    
-    print(f'Successfully downloaded video for "{movie_name}"')
+def delete_file_if_exists(filepath):
+    if os.path.exists(filepath):
+        os.remove(filepath)
+        print("DELETED EXISTING TRAILER")
+        return True
+    else:
+        return False
 
 if __name__ == "__main__":
     import sys
