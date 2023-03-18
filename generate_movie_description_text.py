@@ -11,11 +11,8 @@ openai.api_key = os.getenv("CHATGPT_API_KEY")
 
 # Function to generate a 90-second video script for a movie using ChatGPT
 def generate_video_script(movie_name, filename):
-  movie_script_prompt = f"""Please write 4 long paragraphs of voiceover script accurately
-   describing the plot from the screenplay of the movie {movie_name} without mentioning 
-   the actors or the production. Say at the beginning that this video contains 
-   spoilers for {movie_name}. Reading this text should take less than 60 seconds. 
-   The end should describe the meaning behind the movie."""
+  movie_script_prompt = f"""Please Write a script for a youtube short describing the movie {movie_name} from the perspective of inside the movie (don't mention any actors or the production). Make the script take 55 seconds or less for Amazon Polly to read and be accurate about the actual plot of the movie. Only include the narration script without any screen direction or the name of the narrator. Don't ask questions about the plot just describe and spoil it outright. Don't ask the viewer to like or subscribe or anything like that just stick to the movie plot and be brief about it.
+"""
   
   script = generate_gpt_response(movie_script_prompt, temperature=1)
   
