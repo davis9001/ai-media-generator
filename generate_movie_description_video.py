@@ -1,7 +1,5 @@
 import random
-from moviepy.editor import VideoFileClip, concatenate_videoclips, ColorClip, CompositeVideoClip
-from moviepy.video.fx import resize
-import mutagen
+from moviepy.editor import *
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 from moviepy.config import change_settings
 # change_settings({"IMAGEMAGICK_BINARY": r"/usr/local/bin/convert"})
@@ -13,6 +11,13 @@ def make_landscape_video(movie_name):
     input_audio_file = f"generated-tts-audio/{movie_name}.mp3"
     input_video_file = f"movie-trailers/{movie_name}.webm"
 
+    # Open the input video (trailer)
+    video_file = VideoFileClip(input_video_file)
+    video_file = video_file.without_audio()
+
+    video_length = video_file.duration
+
+    # Open the input audio (voiceover)
     audio_file = AudioFileClip(input_audio_file)
 
     audio_file_length = audio_file.duration
@@ -22,16 +27,11 @@ def make_landscape_video(movie_name):
 
     # Create start times as equally spaced num_clips into audio_file_length
     # e.g. [0, 9, 19, 28, 38]
-    start_times = create_start_times(num_clips, audio_file_length)
-    print(audio_file_length)
-    print(start_times)
+    start_times = create_start_times(num_clips, video_length)
 
     # Set the duration of each clip in seconds
-    clip_duration = audio_file_length / num_clips
+    clip_duration = audio_length / num_clips
 
-    # Open the input video
-    video = VideoFileClip(input_video_file)
-    video = video.without_audio()
 
     # Extract the clips using VideoFileClip.subclip
     clips = []
@@ -40,7 +40,7 @@ def make_landscape_video(movie_name):
     clip_offset = 2
     for start_time in start_times:
         start_time = start_time + clip_offset
-        clips.append(video.subclip(start_time, start_time + clip_duration))
+        clips.append(video_file.subclip(start_time, start_time + clip_duration))
 
     # Concatenate the clips into a single video using concatenate_videoclips
     final_clip = concatenate_videoclips(clips)
@@ -57,6 +57,11 @@ def write_landscape_video(video_clip, movie_name):
     video_clip.write_videofile(output_file, codec='libx264')
 
 def make_portrait_video(landscape_clip, movie_name):
+    landscape_duration = landscape_clip.duration
+
+    if landscape_duration > 59:
+        print('Duration over 59 seconds, speeding up...')
+        landscape_clip = landscape_clip.fx( vfx.speedx, landscape_duration/59)
     
     blank_portrait_clip = ColorClip(
         (1080, 1920),
@@ -86,7 +91,7 @@ def blur(image):
     return gaussian(image.astype(float), sigma=9)
 
 def create_start_times(n, x):
-    # Create start times as equally spaced num_clips (n) into audio_file_length (x)
+    # Create start times as equally spaced num_clips (n) into movie_trailer_length (x)
     # for n=5 and x=60
     # return [0, 9, 19, 28, 38]
     step = x/n
