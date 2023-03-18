@@ -15,6 +15,8 @@ def generate_video_script(movie_name, filename):
 """
   
   script = generate_gpt_response(movie_script_prompt, temperature=1)
+
+  script = f"Spoilers for {movie_name}... \n\n" + script
   
   print(f"Script: {script}")
   
