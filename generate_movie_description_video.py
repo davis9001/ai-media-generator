@@ -20,7 +20,7 @@ def make_landscape_video(movie_name):
     # Open the input audio (voiceover)
     audio_file = AudioFileClip(input_audio_file)
 
-    audio_file_length = audio_file.duration
+    audio_length = audio_file.duration
 
     # Set the number of clips to grab
     num_clips = 9
