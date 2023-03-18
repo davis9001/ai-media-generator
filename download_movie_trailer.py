@@ -8,6 +8,9 @@ load_dotenv()
 YOUTUBE_API_KEY = os.environ['YOUTUBE_API_KEY']
 
 def download_movie_trailer(movie_name):
+    # Delete alrady downloaded file if it exists:
+    delete_file_if_exists(f'movie-trailers/{movie_name}.webm')
+
     # Use the YouTube Data API to search for videos with the given movie name
     youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
     search_response = youtube.search().list(
