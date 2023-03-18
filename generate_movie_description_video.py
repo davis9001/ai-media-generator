@@ -23,7 +23,7 @@ def make_landscape_video(movie_name):
     audio_file_length = audio_file.duration
 
     # Set the number of clips to grab
-    num_clips = 4
+    num_clips = 9
 
     # Create start times as equally spaced num_clips into audio_file_length
     # e.g. [0, 9, 19, 28, 38]
