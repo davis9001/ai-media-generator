@@ -12,7 +12,7 @@ def download_movie_trailer(movie_name):
     delete_file_if_exists(f'movie-trailers/{movie_name}.webm')
 
     # Use the YouTube Data API to search for videos with the given movie name
-    search_phrase = f'"{movie_name}" "official trailer"'
+    search_phrase = f'"{movie_name}" "official trailer" -movieclips'
     youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
     search_response = youtube.search().list(
         q=search_phrase,
