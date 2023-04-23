@@ -19,7 +19,6 @@ def make_landscape_video(movie_name):
 
     # Open the input audio (voiceover)
     audio_file = AudioFileClip(input_audio_file)
-
     audio_length = audio_file.duration
 
     # Set the number of clips to grab
@@ -32,10 +31,8 @@ def make_landscape_video(movie_name):
     # Set the duration of each clip in seconds
     clip_duration = audio_length / num_clips
 
-
     # Extract the clips using VideoFileClip.subclip
     clips = []
-
     # Offset the start of each clip by:
     clip_offset = 2
     for start_time in start_times:
@@ -142,6 +139,6 @@ if __name__ == "__main__":
         args.input = input("Enter the Movie Name (Year): ")
     movie_name = args.input
     landscape_clip = make_landscape_video(movie_name)
-    portrait_clip = make_portrait_video(landscape_clip, movie_name)
     write_landscape_video(landscape_clip, movie_name)
+    portrait_clip = make_portrait_video(landscape_clip, movie_name)
     write_portrait_video(portrait_clip, movie_name)
