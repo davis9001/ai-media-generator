@@ -47,6 +47,18 @@ def make_landscape_video(movie_name):
     final_clip.audio = audio_file
     final_clip = final_clip.resize(width=1920)
 
+    # Add a random song as background:
+    song = random_song()
+    if (song):
+        print(f'Adding song: {song}')
+        song = AudioFileClip(song)
+        song_clip_start = random_song_start()
+        song_clip_end = song_clip_start + final_clip.duration
+        song = song.subclip(song_clip_start, song_clip_end)
+        song = song.volumex(0.1)
+        final_audio = CompositeAudioClip([song, audio_file])
+        final_clip.audio = final_audio
+        
     return final_clip
 
 def write_landscape_video(video_clip, movie_name):
@@ -55,6 +67,7 @@ def write_landscape_video(video_clip, movie_name):
 
     # Save the final clip to the output file
     video_clip.write_videofile(output_file, codec='libx264')
+
 
 def make_portrait_video(landscape_clip, movie_name):
     landscape_duration = landscape_clip.duration
@@ -81,6 +94,18 @@ def make_portrait_video(landscape_clip, movie_name):
 
     return final_clip
 
+def random_song(directory = './songs'):
+    if os.path.isdir(directory):
+        wav_files = glob.glob(f'{directory}/*.wav')
+        if len(wav_files) > 0:
+            return random.choice(wav_files)
+        elif os.path.isfile('./songs/default.wav'):
+            return './songs/default.wav'
+        else:
+            return False
+
+def random_song_start(video_length=0, song_length=0):
+    return 0
 
 def write_portrait_video(portrait_clip, movie_name):
     output_file = f"generated-movie-description-videos/{movie_name} - PORTRAIT.mp4"
