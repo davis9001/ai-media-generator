@@ -1,4 +1,4 @@
-import random
+import random, glob, os
 from moviepy.editor import *
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 from moviepy.config import change_settings
