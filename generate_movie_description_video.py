@@ -94,8 +94,15 @@ def create_start_times(n, x):
     # Create start times as equally spaced num_clips (n) into movie_trailer_length (x)
     # for n=5 and x=60
     # return [0, 9, 19, 28, 38]
+    # remove a few seconds (c) from trailer length to remove credits
+    c = 5
+    c = c / 2
+
+    x = x - c
     step = x/n
-    return [int(i*step) for i in range(n)]
+
+    # add a few seconds to remove credits
+    return [int(i*step + c) for i in range(n)]
 
 if __name__ == "__main__":
     import sys
