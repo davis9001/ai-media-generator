@@ -54,7 +54,7 @@ def make_landscape_video(movie_name):
         song = song.subclip(song_clip_start, song_clip_end)
         song = song.volumex(0.1)
         final_audio = CompositeAudioClip([song, audio_file])
-        final_clip.audio = final_audio
+        # final_clip.audio = final_audio
         
     return final_clip
 
