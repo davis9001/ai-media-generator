@@ -1,5 +1,6 @@
 .env
 venv
+wenv
 __pycache__/
 movie-description-audio/*
 movie-description-videos/*
